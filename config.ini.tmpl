@@ -1,0 +1,87 @@
+[app:main]
+use = egg:pypicloud
+
+pyramid.reload_templates = false
+pyramid.debug_authorization = false
+pyramid.debug_notfound = false
+pyramid.debug_routematch = false
+pyramid.default_locale_name = en
+
+pypi.fallback = {{ getv "/pypi/fallback" }}
+pypi.fallback_url = {{ getv "/pypi/fallback/url" }}
+
+pypi.storage = {{ getv "/pypi/storage" }}
+
+# File storage configs.
+storage.dir = {{ getv "/pypi/storage/dir" }}
+
+# S3 storage configs.
+# Key and secret pulled from AWS_* variables.
+storage.bucket = {{ getv "/pypi/storage/bucket" }}
+
+pypi.auth = {{ getv "/pypi/auth" }}
+pypi.default_read = {{ getv "/pypi/default/read" }}
+pypi.cache_update = {{ getv "/pypi/cache/update" }}
+
+auth.admins =
+  admin
+
+user.admin = {{ getv "/pypi/admin/password" }}
+
+db.url = {{ getv "/pypi/db/url" }}
+auth.db.url = {{ getv "/pypi/auth/db/url" }}
+
+# For beaker
+session.encrypt_key = {{ getv "/pypi/session/encrypt/key" }}
+session.validate_key = {{ getv "/pypi/session/validate/key" }}
+session.secure = {{ getv "/pypi/session/secure" }}
+
+###
+# wsgi server configuration
+###
+
+[uwsgi]
+paste = config:%p
+paste-logger = %p
+master = true
+processes = {{ getv "/pypi/processes" }}
+reload-mercy = 15
+worker-reload-mercy = 15
+max-requests = 1000
+{{if getv "/pypi/ssl/key"}}
+https = {{ getv "/pypi/http" }},{{ getv "/pypi/ssl/crt" }},{{ getv "/pypi/ssl/key" }}
+{{else}}
+http = {{ getv "/pypi/http" }}
+{{end}}
+
+###
+# logging configuration
+# http://docs.pylonsproject.org/projects/pyramid/en/latest/narr/logging.html
+###
+
+[loggers]
+keys = root, boto
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[logger_boto]
+level = WARN
+qualname = boto
+handlers =
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(levelname)s %(asctime)s [%(name)s] %(message)s

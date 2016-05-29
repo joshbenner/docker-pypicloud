@@ -1,0 +1,23 @@
+[template]
+src = "config.ini.tmpl"
+dest = "/config.ini"
+keys = [
+    "/pypi/fallback",
+    "/pypi/fallback/url",
+    "/pypi/storage",
+    "/pypi/storage/dir",
+    "/pypi/auth",
+    "/pypi/default/read",
+    "/pypi/cache/update",
+    "/pypi/admin/password",
+    "/pypi/db/url",
+    "/pypi/auth/db/url",
+    "/pypi/session/encrypt/key",
+    "/pypi/session/validate/key",
+    "/pypi/session/secure",
+    "/pypi/processes",
+    "/pypi/http",
+    "/pypi/storage/bucket",
+    "/pypi/ssl/crt",
+    "/pypi/ssl/key"
+]
