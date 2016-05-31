@@ -1,7 +1,6 @@
 # joshbenner/pypicloud
 
-Dockerfile to build a docker image for running a
-[pypicloud](http://pypicloud.readthedocs.io/en/latest/) instance.
+Dockerfile to build a docker image for running a [pypicloud](http://pypicloud.readthedocs.io/en/latest/) instance.
 
 # Configuration
 
@@ -35,28 +34,24 @@ Configuration is provided via runtime environment variables.
 $ docker run --rm -it joshbenner/pypicloud gen-password
 ```
 
-Enter the password twice. An encrypted value will be printed that can be put in
-the `PYPI_ADMIN_PASSWORD` environment variable. It will look something like:
+Enter the password twice. An encrypted value will be printed that can be put in the `PYPI_ADMIN_PASSWORD` environment variable. It will look something like:
 
     $6$rounds=704055$kq8HTiZC50zoffwq$T335/H9UxRegwAxcuTUggt.ip2CBpP18wTxOAGpK8DLBZ3jC2yVklFQxRtOd5tHqmzaxDIuq0VUJb/lzaLhNW0
 
 ## SSL Termination
 
-Terminating SSL at a proxy or load balancer is recommended. However, SSL options
-are available if you require SSL termination at the container:
+Terminating SSL at a proxy or load balancer is recommended. However, SSL options are available if you require SSL termination at the container:
 
 ```
 PYPI_SSL_KEY=/certs/mysite.key
 PYPI_SSL_CRT=/certs/mysite.crt
 ```
 
-These paths must be available to the application running inside the container at
-runtime.
+These paths must be available to the application running inside the container at runtime.
 
 ## LDAP Authentication
 
-LDAP authentication can be enabled by setting `PYPI_AUTH` to `ldap`, as well as
-configuring the following additional LDAP-specific options:
+LDAP authentication can be enabled by setting `PYPI_AUTH` to `ldap`, as well as configuring the following additional LDAP-specific options:
 
 | Env Var | Default | Description |
 | ------- | ------- | ----------- |
