@@ -45,6 +45,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+COPY boto.cfg /etc/boto.cfg
+
 COPY config.ini.tmpl /etc/confd/templates/config.ini.tmpl
 COPY config.ini.toml /etc/confd/conf.d/config.ini.toml
 
