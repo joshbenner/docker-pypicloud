@@ -36,7 +36,7 @@ ENV PYPICLOUD_VERSION=0.4.0 \
 # Installing uwsgi and pypicloud in same pip command fails for some reason.
 RUN DEBIAN_FRONTEND=noninteractive \
     apt-get update && \
-    apt-get install --no-install-recommends -y -q \
+    apt-get install --no-install-recommends -y --force-yes -q \
         build-essential libldap2-dev libldap-2.4 libsasl2-dev libsasl2-2 && \
     pip install --no-cache-dir uwsgi && \
     pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION && \
