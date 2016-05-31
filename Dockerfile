@@ -41,7 +41,7 @@ RUN DEBIAN_FRONTEND=noninteractive \
     pip install --no-cache-dir uwsgi && \
     pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION && \
     mkdir -p /etc/confd/conf.d /etc/confd/templates /var/lib/pypicloud/packages && \
-    apt-get purge build-essential libldap2-dev libsasl2-dev && \
+    apt-get purge -y build-essential libldap2-dev libsasl2-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
