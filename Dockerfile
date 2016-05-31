@@ -54,5 +54,5 @@ RUN chmod +x /usr/local/bin/confd
 EXPOSE 8080
 
 COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["pypi"]
