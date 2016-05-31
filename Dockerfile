@@ -1,4 +1,4 @@
-FROM python:2.7-alpine
+FROM python:2.7
 
 # Default credentials: admin/secret
 # Use ppc-gen-password to generate new value.
@@ -34,12 +34,16 @@ ENV PYPICLOUD_VERSION=0.4.0 \
     PYPI_LDAP_ADMIN_DNS=
 
 # Installing uwsgi and pypicloud in same pip command fails for some reason.
-RUN apk --no-cache add --virtual .build-deps build-base linux-headers openldap-dev \
-    && apk --no-cache add libuuid libldap \
-    && pip install --no-cache-dir uwsgi \
-    && pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION \
-    && mkdir -p /etc/confd/conf.d /etc/confd/templates /var/lib/pypicloud/packages \
-    && apk del .build-deps
+RUN DEBIAN_FRONTEND=noninteractive \
+    apt-get update && \
+    apt-get install --no-install-recommends -y -q \
+        build-essential libldap2-dev libldap-2.4 libsasl2-dev libsasl2-2 && \
+    pip install --no-cache-dir uwsgi && \
+    pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION && \
+    mkdir -p /etc/confd/conf.d /etc/confd/templates /var/lib/pypicloud/packages && \
+    apt-get purge build-essential libldap2-dev libsasl2-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY config.ini.tmpl /etc/confd/templates/config.ini.tmpl
 COPY config.ini.toml /etc/confd/conf.d/config.ini.toml
