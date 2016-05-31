@@ -31,6 +31,15 @@ user.admin = {{ getv "/pypi/admin/password" }}
 db.url = {{ getv "/pypi/db/url" }}
 auth.db.url = {{ getv "/pypi/auth/db/url" }}
 
+auth.ldap.url = {{ getv "/pypi/ldap/url" }}
+auth.ldap.service_dn = {{ getv "/pypi/ldap/service/dn" }}
+auth.ldap.service_password = {{ getv "/pypi/ldap/service/password" }}
+auth.ldap.base_dn = {{ getv "/pypi/ldap/basedn" }}
+auth.ldap.all_user_search = {{ getv "/pypi/ldap/usersearch" }}
+auth.ldap.id_field = {{ getv "/pypi/ldap/idfield" }}
+auth.ldap.admin_field = {{ getv "/pypi/ldap/admin/field" }}
+auth.ldap.admin_dns = {{ getv "/pypi/ldap/admin/dns" }}
+
 # For beaker
 session.encrypt_key = {{ getv "/pypi/session/encrypt/key" }}
 session.validate_key = {{ getv "/pypi/session/validate/key" }}

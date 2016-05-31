@@ -19,5 +19,13 @@ keys = [
     "/pypi/http",
     "/pypi/storage/bucket",
     "/pypi/ssl/crt",
-    "/pypi/ssl/key"
+    "/pypi/ssl/key",
+    "/pypi/ldap/url",
+    "/pypi/ldap/service/dn",
+    "/pypi/ldap/service/password",
+    "/pypi/ldap/basedn",
+    "/pypi/ldap/usersearch",
+    "/pypi/ldap/idfield",
+    "/pypi/ldap/admin/field",
+    "/pypi/ldap/admin/dns"
 ]

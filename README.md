@@ -52,3 +52,19 @@ PYPI_SSL_CRT=/certs/mysite.crt
 
 These paths must be available to the application running inside the container at
 runtime.
+
+## LDAP Authentication
+
+LDAP authentication can be enabled by setting `PYPI_AUTH` to `ldap`, as well as
+configuring the following additional LDAP-specific options:
+
+| Env Var | Default | Description |
+| ------- | ------- | ----------- |
+| `PYPI_LDAP_URL` | | The LDAP connection URL. Example: `ldap://ldap.example.com:389` |
+| `PYPI_LDAP_SERVICE_DN` | | The DN used to bind to LDAP. Requires read access to directory. Example: `cn=SuperUser,dc=example,dc=com` |
+| `PYPI_LDAP_SERVICE_PASSWORD` | | The password used to bind to the service DN. |
+| `PYPI_LDAP_BASEDN` | | The DN under which all users are found. Base of search in `PYPI_LDAP_USERSEARCH` |
+| `PYPI_LDAP_USERSEARCH` | | The LDAP search that will find all potential users. Only searches under `PYPI_LDAP_BASEDN`. |
+| `PYPI_LDAP_IDFIELD` | | The LDAP field that has the user name. |
+| `PYPI_LDAP_ADMIN_DNS` | | Space-separated list of DNs that have a field listing user DNs to be considered admins. |
+| `PYPI_LDAP_ADMIN_FIELD` | | The field in the DNs in `PYPI_LDAP_ADMIN_DNS` that identifies admin user DNs. |

@@ -23,7 +23,15 @@ ENV PYPICLOUD_VERSION=0.4.0 \
     PYPI_HTTP=0.0.0.0:8080 \
     PYPI_PROCESSES=20 \
     PYPI_SSL_KEY= \
-    PYPI_SSL_CRT=
+    PYPI_SSL_CRT= \
+    PYPI_LDAP_URL= \
+    PYPI_LDAP_SERVICE_DN= \
+    PYPI_LDAP_SERVICE_PASSWORD= \
+    PYPI_LDAP_BASEDN= \
+    PYPI_LDAP_USERSEARCH= \
+    PYPI_LDAP_IDFIELD= \
+    PYPI_LDAP_ADMIN_FIELD= \
+    PYPI_LDAP_ADMIN_DNS=
 
 # Installing uwsgi and pypicloud in same pip command fails for some reason.
 RUN apk --no-cache add --virtual .build-deps build-base linux-headers \
