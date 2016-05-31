@@ -34,9 +34,9 @@ ENV PYPICLOUD_VERSION=0.4.0 \
     PYPI_LDAP_ADMIN_DNS=
 
 # Installing uwsgi and pypicloud in same pip command fails for some reason.
-RUN apk --no-cache add --virtual .build-deps build-base linux-headers \
+RUN apk --no-cache add --virtual .build-deps build-base linux-headers openldap-dev \
     && pip install --no-cache-dir uwsgi \
-    && pip install --no-cache-dir pypicloud==$PYPICLOUD_VERSION \
+    && pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION \
     && mkdir -p /etc/confd/conf.d /etc/confd/templates /var/lib/pypicloud/packages \
     && apk del .build-deps
 
