@@ -18,6 +18,7 @@ storage.dir = {{ getv "/pypi/storage/dir" }}
 # S3 storage configs.
 # Key and secret pulled from AWS_* variables.
 storage.bucket = {{ getv "/pypi/storage/bucket" }}
+storage.calling_format = OrdinaryCallingFormat
 
 pypi.auth = {{ getv "/pypi/auth" }}
 pypi.default_read = {{ getv "/pypi/default/read" }}
