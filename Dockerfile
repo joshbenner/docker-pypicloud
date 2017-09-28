@@ -3,7 +3,7 @@ FROM python:2.7
 # Default credentials: admin/secret
 # Use ppc-gen-password to generate new value.
 ENV PYPICLOUD_VERSION=0.4.0 \
-    CONFD_VERSION=0.12.0-alpha3 \
+    CONFD_VERSION=0.13.0 \
     PYPI_ADMIN_PASSWORD='$6$rounds=704055$kq8HTiZC50zoffwq$T335/H9UxRegwAxcuTUggt.ip2CBpP18wTxOAGpK8DLBZ3jC2yVklFQxRtOd5tHqmzaxDIuq0VUJb/lzaLhNW0' \
     PYPI_DB_URL=sqlite:////var/lib/pypicloud/db.sqlite \
     PYPI_AUTH_DB_URL=sqlite:////var/lib/pypicloud/db.sqlite \
@@ -15,10 +15,10 @@ ENV PYPICLOUD_VERSION=0.4.0 \
     PYPI_STORAGE=file \
     PYPI_STORAGE_DIR=/var/lib/pypicloud/packages \
     PYPI_STORAGE_BUCKET=changeme \
-    AWS_ACCESS_KEY_ID=changeme \
-    AWS_SECRET_ACCESS_KEY=changeme \
+    PYPI_STORAGE_REGION=eu-west-1 \
     PYPI_AUTH=config \
     PYPI_DEFAULT_READ=authenticated \
+    PYPI_DEFAULT_WRITE= \
     PYPI_CACHE_UPDATE=authenticated \
     PYPI_HTTP=0.0.0.0:8080 \
     PYPI_PROCESSES=20 \
@@ -39,7 +39,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
     apt-get install --no-install-recommends -y --force-yes -q \
         build-essential libldap2-dev libldap-2.4 libsasl2-dev libsasl2-2 && \
     pip install --no-cache-dir uwsgi && \
-    pip install --no-cache-dir pypicloud[ldap]==$PYPICLOUD_VERSION && \
+    pip install --no-cache-dir pypicloud[ldap,dynamo]==$PYPICLOUD_VERSION \
+        requests uwsgi pastescript redis mysql-python psycopg2 && \
     mkdir -p /etc/confd/conf.d /etc/confd/templates /var/lib/pypicloud/packages && \
     apt-get purge -y build-essential libldap2-dev libsasl2-dev && \
     apt-get clean && \
